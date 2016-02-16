@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/application_style.css"
+            xmlns="http://javafx.com/javafx/8"
+            fx:controller="ie.wit.assignment.towers_of_hanoi.ver_01.views.menu.MenuCtrl">
+    <center>
+        <VBox>
+            <children>
+                <StackPane prefHeight="65.0" prefWidth="600.0">
+                    <children>
+                        <Label text="Towers of Hanoi">
+                            <font>
+                                <Font name="Brush Script MT Italic" size="48.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </StackPane>
+                <HBox alignment="CENTER" prefHeight="306.0" prefWidth="600.0" spacing="20.0"
+                      BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="newGameBtn" mnemonicParsing="false" onAction="#startNewGame" text="New Game"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+    <top>
+        <StackPane prefHeight="32.0" prefWidth="600.0" styleClass="topStack"
+                   stylesheets="@../../styles/application_style.css" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Towers of Hanoi Ver 1" StackPane.alignment="CENTER_LEFT">
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+            </children>
+        </StackPane>
+    </top>
+</BorderPane>

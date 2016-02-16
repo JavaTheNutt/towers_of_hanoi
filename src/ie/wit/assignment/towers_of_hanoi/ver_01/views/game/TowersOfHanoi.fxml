@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/application_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ie.wit.assignment.towers_of_hanoi.ver_01.views.game.TowersOfHanoiCtrl">
+    <bottom>
+        <HBox id="bottomHBox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <ComboBox fx:id="comboBox" prefWidth="50.0" />
+                <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#startGame" text="Restart Game" />
+                <Button mnemonicParsing="false" onAction="#checkMoves" text="Undo Move" />
+            </children>
+        </HBox>
+    </bottom>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <StackPane styleClass="centerPanes">
+                    <children>
+                        <HBox>
+                            <children>
+                                <Label text="Moves:  " textFill="#fffefe" StackPane.alignment="CENTER_RIGHT" />
+                                <Label fx:id="movesLabel" textFill="#fffefe" />
+                            </children>
+                        </HBox>
+                    </children>
+                </StackPane>
+                <GridPane VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks">
+                            <padding>
+                                <Insets top="60.0" />
+                            </padding>
+                            <children>
+                                <VBox fx:id="tower01" alignment="BOTTOM_CENTER" onDragDropped="#dragDropped" onMouseClicked="#towerClicked" prefHeight="200.0" prefWidth="100.0" />
+                            </children>
+                        </StackPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks" GridPane.columnIndex="1">
+                            <padding>
+                                <Insets top="60.0" />
+                            </padding>
+                            <children>
+                                <VBox fx:id="tower02" alignment="BOTTOM_CENTER" onDragDropped="#dragDropped" onMouseClicked="#towerClicked" prefHeight="200.0" prefWidth="100.0" />
+                            </children>
+                        </StackPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks" GridPane.columnIndex="2">
+                            <padding>
+                                <Insets top="60.0" />
+                            </padding>
+                            <children>
+                                <VBox fx:id="tower03" alignment="BOTTOM_CENTER" onDragDropped="#dragDropped" onMouseClicked="#towerClicked" prefHeight="200.0" prefWidth="100.0" />
+                            </children>
+                        </StackPane>
+                    </children>
+                </GridPane>
+                <GridPane id="buttonBox" alignment="BOTTOM_CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="tower1Button" mnemonicParsing="false" onAction="#towerClicked" text="Tower 1" GridPane.halignment="CENTER" />
+                        <Button fx:id="tower2Button" mnemonicParsing="false" onAction="#towerClicked" text="Tower 2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button fx:id="tower3Button" alignment="CENTER" mnemonicParsing="false" onAction="#towerClicked" text="Tower 3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </VBox>
+    </center>
+    <top>
+        <StackPane id="topStack" prefHeight="28.0" prefWidth="600.0" styleClass="topStack" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Towers Of Hanoi Ver 1" StackPane.alignment="CENTER_LEFT" />
+            </children>
+            <padding>
+                <Insets left="5.0" />
+            </padding>
+        </StackPane>
+    </top>
+</BorderPane>
