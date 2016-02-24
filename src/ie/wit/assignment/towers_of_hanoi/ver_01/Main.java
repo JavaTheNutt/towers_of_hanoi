@@ -1,5 +1,6 @@
 package ie.wit.assignment.towers_of_hanoi.ver_01;
 
+import ie.wit.assignment.towers_of_hanoi.ver_01.model.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
- * Created by Joe on 09/02/2016.
+ * This is the main class and serves as the enrty point into the application
  */
 public class Main extends Application
 {
@@ -32,4 +33,5 @@ public class Main extends Application
 		window.setScene(new Scene(root, 600, 400));
 		window.show();
 	}
+
 }

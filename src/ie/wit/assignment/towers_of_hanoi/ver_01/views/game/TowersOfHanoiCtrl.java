@@ -17,8 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import java.util.List;
-
 /**
  * Created by Joe on 09/02/2016.
  */
@@ -65,11 +63,12 @@ public class TowersOfHanoiCtrl
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue)
 			{
-				if(!oldValue.equals(newValue)){
+				if (!oldValue.equals(newValue)) {
 					startGame();
 				}
 			}
 		});
+
 		tower01List = tower01.getChildren();
 		tower02List = tower02.getChildren();
 		tower03List = tower03.getChildren();
@@ -85,22 +84,27 @@ public class TowersOfHanoiCtrl
 	@FXML
 	private void towerClicked(Event e)
 	{
-		if (game.isGameWon()){
+		if (game.isGameWon()) {
 			return;
 		}
-		ObservableList<Node> currentList = buttonToList((Node)e.getSource());
+		ObservableList<Node> currentList = buttonToList((Node) e.getSource());
 		if (checkMove(currentList)) {
 			moveBlocks(currentList);
 		}
 	}
+
 	@FXML
-	private void blockDragged(Event e){
+	private void blockDragged(Event e)
+	{
 		System.out.println(e.getSource());
 	}
+
 	@FXML
-	private void dragDropped(Event e){
+	private void dragDropped(Event e)
+	{
 		System.out.println(e.getSource());
 	}
+
 	/**
 	 * This method will deal with highlighting the top block and checking whether a move needs to be made. It
 	 * will also check if highlighting needs to be added or removed to a block
@@ -140,7 +144,7 @@ public class TowersOfHanoiCtrl
 			addBlocks();
 			lastList = null;
 			if (game.isGameWon()) {
-				if(GameWonAlert.display(game)){
+				if (GameWonAlert.display(game)) {
 					startGame();
 				}
 			}
@@ -173,7 +177,7 @@ public class TowersOfHanoiCtrl
 	 */
 	private ObservableList<Node> buttonToList(Node btn)
 	{
-		if (btn instanceof Button){
+		if (btn instanceof Button) {
 			if (btn == tower1Button) {
 				return tower01List;
 			} else if (btn == tower2Button) {
@@ -181,9 +185,9 @@ public class TowersOfHanoiCtrl
 			}
 			return tower03List;
 		} else {
-			if(btn == tower01){
+			if (btn == tower01) {
 				return tower01List;
-			} else if (btn == tower02){
+			} else if (btn == tower02) {
 				return tower02List;
 			}
 		}
@@ -199,8 +203,10 @@ public class TowersOfHanoiCtrl
 		game = new Game(comboBox.getValue());
 		addBlocks();
 	}
+
 	@FXML
-	private void checkMoves(){
+	private void checkMoves()
+	{
 		game.resetMove();
 		addBlocks();
 	}
@@ -231,8 +237,8 @@ public class TowersOfHanoiCtrl
 				pane.setPrefSize(100, 20);
 				pane.getStyleClass().add("blocks");
 				currentList.add(currentList.size(), outerPane);
-				if (i == game.getTowerList(j).size()){
-					outerPane.setOnDragDetected(event -> blockDragged(event));
+				if (i == game.getTowerList(j).size()) {
+					outerPane.setOnDragDetected(e -> blockDragged(e));
 				}
 			}
 		}

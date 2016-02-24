@@ -45,5 +45,7 @@ public class Block
 	{
 		this.highlighted = highlighted;
 	}
-
+	public String toString(){
+		return "" + index;
+	}
 }

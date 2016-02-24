@@ -12,17 +12,14 @@ import java.util.Optional;
 public class GameWonAlert
 {
 
-	public static boolean display(Game game){
+	public static boolean display(Game game)
+	{
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Game Won");
 		alert.setHeaderText("Congratulations... You won the game with " + game.getNumMoves() + " moves!");
 		alert.setContentText("Would you like to restart?");
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
-			return true;
-		} else {
-			return false;
-		}
+		return result.get() == ButtonType.OK;
 	}
 }

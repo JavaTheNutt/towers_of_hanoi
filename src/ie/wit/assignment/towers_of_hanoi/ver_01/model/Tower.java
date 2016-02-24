@@ -27,16 +27,19 @@ public class Tower
 		return list;
 	}
 
-	public Integer[] getBlockIds(){
-		Integer [] tempArray = new Integer[list.size()];
+	public Integer[] getBlockIds()
+	{
+		Integer[] tempArray = new Integer[list.size()];
 		for (int i = 0; i < list.size(); i++) {
 			tempArray[i] = list.get(i).getIndex();
 		}
 		return tempArray;
 	}
-	public Block getBlockByIndex(int index){
-		for (Block block: list) {
-			if(index == block.getIndex()){
+
+	public Block getBlockByIndex(int index)
+	{
+		for (Block block : list) {
+			if (index == block.getIndex()) {
 				return block;
 			}
 		}

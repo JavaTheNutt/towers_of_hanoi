@@ -2,13 +2,14 @@ package ie.wit.assignment.towers_of_hanoi.ver_01.model;
 
 import javafx.collections.ObservableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Joe on 12/02/2016.
+ * This will be an instance of a single game.
  */
-public class Game
+public class Game implements Serializable
 {
 	private int numMoves;
 	private boolean gameWon;
@@ -17,10 +18,9 @@ public class Game
 	private Tower tower03;
 	private Tower[] towers;
 	private int numBlocks;
-	private List<Integer[]> tower1MoveList;
-	private List<Integer[]> tower2MoveList;
-	private List<Integer[]> tower3MoveList;
 	private List<Block> blockList;
+	private List<State> stateList;
+
 	/**
 	 * Constructor
 	 *
@@ -30,10 +30,8 @@ public class Game
 	{
 		this.numBlocks = numBlocks;
 		numMoves = 0;
-		tower1MoveList = new ArrayList<>();
-		tower2MoveList = new ArrayList<>();
-		tower3MoveList = new ArrayList<>();
 		blockList = new ArrayList<>();
+		stateList = new ArrayList<>();
 		gameWon = false;
 		tower01 = new Tower(1);
 		tower02 = new Tower(2);
@@ -58,7 +56,9 @@ public class Game
 			towers[0].getList().add(block);
 			blockList.add(block);
 		}
-		tower1MoveList.add(tower01.getBlockIds());
+		State state = new State(tower01, tower02, tower03);
+		stateList.add(state);
+		state.printState();
 	}
 
 	public int getNumBlocks()
@@ -67,7 +67,13 @@ public class Game
 	}
 
 
-
+	/**
+	 * This method will check the legality of a move based on the size of the block in question, if the move is legal,
+	 * it will be made.
+	 * @param from the tower that the block will be moved from
+	 * @param to the tower that the block will be moved to
+	 * @return a boolean to determine the legality of the move in question
+	 */
 	public boolean moveBlock(int from, int to)
 	{
 		Block blockFrom = towers[from].getList().get(towers[from].getList().size() - 1);
@@ -83,17 +89,26 @@ public class Game
 		if (checkWon()) {
 			gameWon = true;
 		}
-		tower1MoveList.add(tower01.getBlockIds());
-		tower2MoveList.add(tower02.getBlockIds());
-		tower3MoveList.add(tower03.getBlockIds());
+		State state = new State(tower01, tower02, tower03);
+		stateList.add(state);
+		state.printState();
 		return true;
 	}
 
+	/**
+	 * This method will check if the game has been won
+	 * @return a boolean to determine if the game has been won
+	 */
 	public boolean checkWon()
 	{
 		return tower02.getList().size() == numBlocks;
 	}
 
+	/**
+	 * Return a tower based on the id passed
+	 * @param id is the id of the tower
+	 * @return the tower requested
+	 */
 	public ObservableList<Block> getTowerList(int id)
 	{
 		return towers[id].getList();
@@ -109,52 +124,23 @@ public class Game
 		return numMoves;
 	}
 
-	public void resetMove(){
-		if (numMoves < 1 || gameWon){
+	public void resetMove()
+	{
+		if (numMoves < 1 || gameWon) {
 			return;
 		}
-		resetMoveCtrl(tower01);
-		resetMoveCtrl(tower02);
-		resetMoveCtrl(tower03);
+		tower01.getList().clear();
+		tower01.getList().addAll(stateList.get(stateList.size() -2).getTower01Blocks());
+
+		tower02.getList().clear();
+		tower02.getList().addAll(stateList.get(stateList.size() -2).getTower02Blocks());
+
+		tower03.getList().clear();
+		tower03.getList().addAll(stateList.get(stateList.size() -2).getTower03Blocks());
+
+		stateList.remove(stateList.size() -1);
 		numMoves--;
-	}
-	private void resetMoveCtrl(Tower tower){
-		tower.getList().clear();
-		List<Integer[]> list;
-		if (tower == tower01){
-			list = tower1MoveList;
-		} else if(tower == tower02){
-			list = tower2MoveList;
-		} else{
-			list = tower3MoveList;
-		}
-		if (list.size() <= 1){
-			return;
-		}
-		Integer[] moveList = list.get(list.size() -2);
-		for (Integer num: moveList) {
-			System.out.println(num);
-			for (Block block: blockList){
-				if (block.getIndex() == num){
-					tower.getList().add(block);
-				}
-			}
-		}
-		list.remove(list.size() -1);
-
-	}
-	public List<Integer[]> getTower1MoveList()
-	{
-		return tower1MoveList;
+		stateList.get(stateList.size() -1).printState();
 	}
 
-	public List<Integer[]> getTower2MoveList()
-	{
-		return tower2MoveList;
-	}
-
-	public List<Integer[]> getTower3MoveList()
-	{
-		return tower3MoveList;
-	}
 }

@@ -27,4 +27,8 @@ public class MenuCtrl
 			e.printStackTrace();
 		}
 	}
+	@FXML
+	private void initialize(){
+
+	}
 }
