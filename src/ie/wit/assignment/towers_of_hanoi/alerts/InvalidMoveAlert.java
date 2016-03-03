@@ -1,4 +1,4 @@
-package ie.wit.assignment.towers_of_hanoi.ver_01.alerts;
+package ie.wit.assignment.towers_of_hanoi.alerts;
 
 import javafx.scene.control.Alert;
 

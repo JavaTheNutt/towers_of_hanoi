@@ -1,7 +1,9 @@
 package ie.wit.assignment.towers_of_hanoi.ver_01.views.game;
 
-import ie.wit.assignment.towers_of_hanoi.ver_01.alerts.GameWonAlert;
-import ie.wit.assignment.towers_of_hanoi.ver_01.alerts.InvalidMoveAlert;
+import ie.wit.assignment.towers_of_hanoi.alerts.GameWonAlert;
+import ie.wit.assignment.towers_of_hanoi.alerts.InvalidMoveAlert;
+import ie.wit.assignment.towers_of_hanoi.ver_01.Main;
+import ie.wit.assignment.towers_of_hanoi.ver_01.managers.SaveManager;
 import ie.wit.assignment.towers_of_hanoi.ver_01.model.Block;
 import ie.wit.assignment.towers_of_hanoi.ver_01.model.Game;
 import javafx.beans.value.ChangeListener;
@@ -48,6 +50,8 @@ public class TowersOfHanoiCtrl
 
 	private ObservableList<Node> lastList;
 
+	private SaveManager saveManager;
+
 	public static void gameWon()
 	{
 		System.out.println("won");
@@ -56,6 +60,7 @@ public class TowersOfHanoiCtrl
 	@FXML
 	private void initialize()
 	{
+		saveManager = Main.saveManager;
 		comboBox.getItems().addAll(3, 4, 5, 6, 7, 8);
 		comboBox.setValue(3);
 		comboBox.valueProperty().addListener(new ChangeListener<Integer>()
@@ -64,6 +69,7 @@ public class TowersOfHanoiCtrl
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue)
 			{
 				if (!oldValue.equals(newValue)) {
+					Main.setLoadGame(false);
 					startGame();
 				}
 			}
@@ -145,6 +151,7 @@ public class TowersOfHanoiCtrl
 			lastList = null;
 			if (game.isGameWon()) {
 				if (GameWonAlert.display(game)) {
+					Main.setLoadGame(false);
 					startGame();
 				}
 			}
@@ -194,14 +201,25 @@ public class TowersOfHanoiCtrl
 		return tower03List;
 	}
 
-	/**
-	 * This method is called to start the game and also when the restart game button is clicked
-	 */
-	@FXML
+
 	private void startGame()
 	{
-		game = new Game(comboBox.getValue());
+		if (Main.isLoadGame()) {
+			game = new Game(Main.getLastState());
+			saveManager.setGame(game.getCurrentState());
+		} else {
+			game = new Game(comboBox.getValue());
+			saveManager.setGame(game.getCurrentState());
+		}
+		System.out.println(game);
 		addBlocks();
+	}
+
+	@FXML
+	private void restartClicked()
+	{
+		Main.setLoadGame(false);
+		startGame();
 	}
 
 	@FXML
@@ -230,18 +248,17 @@ public class TowersOfHanoiCtrl
 			}
 			for (int i = game.getTowerList(j).size(); i > 0; i--) {
 				Block block = game.getTowerList(j).get(i - 1);
-				Insets padding = new Insets(0, block.getSize() * 20, 0, block.getSize() * 20);
+				Insets padding = new Insets(0, block.getSize() * 30, 0, block.getSize() * 30);
 				StackPane pane = new StackPane();
 				StackPane outerPane = new StackPane(pane);
 				outerPane.setPadding(padding);
 				pane.setPrefSize(100, 20);
 				pane.getStyleClass().add("blocks");
 				currentList.add(currentList.size(), outerPane);
-				if (i == game.getTowerList(j).size()) {
-					outerPane.setOnDragDetected(e -> blockDragged(e));
-				}
+
 			}
 		}
+		saveManager.setGame(game.getCurrentState());
 		movesLabel.setText(Integer.toString(game.getNumMoves()));
 	}
 }

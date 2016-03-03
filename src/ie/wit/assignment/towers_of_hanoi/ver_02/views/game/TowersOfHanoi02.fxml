@@ -3,17 +3,17 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0"
-            prefWidth="600.0" stylesheets="@../../styles/application_style.css"
-            xmlns="http://javafx.com/javafx/8"
-            fx:controller="ie.wit.assignment.towers_of_hanoi.ver_01.views.game.TowersOfHanoiCtrl">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            stylesheets="@../../style/applicationStyle02.css" xmlns="http://javafx.com/javafx/8"
+            fx:controller="ie.wit.assignment.towers_of_hanoi.ver_02.views.game.TowersOfHanoi02Ctrl">
     <bottom>
         <HBox id="bottomHBox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="100.0"
               BorderPane.alignment="CENTER">
             <children>
                 <ComboBox fx:id="comboBox" prefWidth="50.0"/>
-                <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#restartClicked" text="Restart Game"/>
-                <Button mnemonicParsing="false" onAction="#checkMoves" text="Undo Move"/>
+                <Button mnemonicParsing="false" onAction="#restartClicked" text="Restart Game"/>
+                <Button mnemonicParsing="false" text="Undo Move"/>
             </children>
         </HBox>
     </bottom>
@@ -22,16 +22,18 @@
             <children>
                 <StackPane styleClass="centerPanes">
                     <children>
-                        <HBox>
+                        <HBox styleClass="scoreBox">
                             <children>
-                                <Label text="Moves:  " textFill="#fffefe" StackPane.alignment="CENTER_RIGHT"/>
-                                <Label fx:id="movesLabel" textFill="#fffefe"/>
+                                <Label fx:id="movesLabel" text="Moves:  " textFill="#fffefe"
+                                       StackPane.alignment="CENTER_RIGHT"/>
+                                <Label textFill="#fffefe"/>
                             </children>
                         </HBox>
                     </children>
                 </StackPane>
                 <GridPane VBox.vgrow="ALWAYS">
                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -45,8 +47,7 @@
                                 <Insets top="60.0"/>
                             </padding>
                             <children>
-                                <VBox fx:id="tower01" alignment="BOTTOM_CENTER" onDragDropped="#dragDropped"
-                                      onMouseClicked="#towerClicked" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower01" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
                             </children>
                         </StackPane>
                         <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks"
@@ -55,8 +56,7 @@
                                 <Insets top="60.0"/>
                             </padding>
                             <children>
-                                <VBox fx:id="tower02" alignment="BOTTOM_CENTER" onDragDropped="#dragDropped"
-                                      onMouseClicked="#towerClicked" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower02" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
                             </children>
                         </StackPane>
                         <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks"
@@ -65,9 +65,17 @@
                                 <Insets top="60.0"/>
                             </padding>
                             <children>
-                                <VBox fx:id="tower03" alignment="BOTTOM_CENTER" onDragDropped="#dragDropped"
-                                      onMouseClicked="#towerClicked" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower03" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
                             </children>
+                        </StackPane>
+                        <StackPane layoutX="310.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0"
+                                   styleClass="centerStacks" GridPane.columnIndex="3">
+                            <children>
+                                <VBox fx:id="tower04" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
+                            </children>
+                            <padding>
+                                <Insets top="60.0"/>
+                            </padding>
                         </StackPane>
                     </children>
                 </GridPane>
@@ -76,17 +84,20 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Button fx:id="tower1Button" mnemonicParsing="false" onAction="#towerClicked" text="Tower 1"
+                        <Button fx:id="tower01Button" mnemonicParsing="false" text="Tower 1"
                                 GridPane.halignment="CENTER"/>
-                        <Button fx:id="tower2Button" mnemonicParsing="false" onAction="#towerClicked" text="Tower 2"
-                                GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
-                        <Button fx:id="tower3Button" alignment="CENTER" mnemonicParsing="false" onAction="#towerClicked"
-                                text="Tower 3" GridPane.columnIndex="2" GridPane.halignment="CENTER"/>
+                        <Button fx:id="tower02Button" mnemonicParsing="false" text="Tower 2" GridPane.columnIndex="1"
+                                GridPane.halignment="CENTER"/>
+                        <Button fx:id="tower03Button" alignment="CENTER" mnemonicParsing="false" text="Tower 3"
+                                GridPane.columnIndex="2" GridPane.halignment="CENTER"/>
+                        <Button alignment="CENTER" layoutX="356.0" layoutY="23.0" mnemonicParsing="false" text="Tower 4"
+                                GridPane.columnIndex="3"/>
                     </children>
                     <padding>
                         <Insets bottom="10.0" top="10.0"/>

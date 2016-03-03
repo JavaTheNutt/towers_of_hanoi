@@ -1,63 +1,69 @@
-package ie.wit.assignment.towers_of_hanoi.ver_01.model;
+package ie.wit.assignment.towers_of_hanoi.ver_02.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This will be an instance of a single game.
  */
-public class Game implements Serializable
+// TODO: 03/03/2016 Add a 4th tower. enable/disable tower at a random interval
+// TODO: 03/03/2016 get 1st constructor to generate default state and call second constructor
+// TODO: 03/03/2016 genereate random number for when tower 4 will become active
+public class Game02 implements Serializable
 {
+	private final Tower02 tower01 = new Tower02(1);
+	private final Tower02 tower02 = new Tower02(2);
+	private final Tower02 tower03 = new Tower02(3);
+	private final FourthTower02 tower04 = new FourthTower02(false);
+	private final Tower02[] towers = new Tower02[4];
+	private final List<Block02> blockList = new ArrayList<>();
 	private int numMoves;
 	private int currentNumMoves;
-	private boolean gameWon;
-	private Tower tower01;
-	private Tower tower02;
-	private Tower tower03;
-	private Tower[] towers;
+	private boolean gameWon = false;
+	private boolean towerDisabled = true;
+	private int toggleDisabledCounter;
 	private int numBlocks;
-	private List<Block> blockList;
-	private List<State> stateList;
-	private State currentState;
+	private List<State02> stateList = new ArrayList<>();
+	private State02 currentState;
 
 	/**
 	 * Constructor
 	 *
 	 * @param numBlocks is the number of blocks to be in the game
 	 */
-	public Game(int numBlocks)
+	public Game02(int numBlocks)
 	{
 		this.numBlocks = numBlocks;
 		numMoves = 0;
-		currentNumMoves = 0;
-		blockList = new ArrayList<>();
-		stateList = new ArrayList<>();
-		gameWon = false;
-		tower01 = new Tower(1);
-		tower02 = new Tower(2);
-		tower03 = new Tower(3);
-		towers = new Tower[3];
-		towers[0] = tower01;
-		towers[1] = tower02;
-		towers[2] = tower03;
-		startGame();
+		assignTowers();
+		State02 state = createDefaultState();
+		initState(state);
 	}
 
-	public Game(State state)
+	public Game02(State02 state)
 	{
 		numBlocks = state.getNumBlocks();
 		numMoves = state.getNumMoves();
-		currentNumMoves = 0;
-		stateList = new ArrayList<>();
-		gameWon = false;
-		tower01 = new Tower(1);
-		tower02 = new Tower(2);
-		tower03 = new Tower(3);
-		towers = new Tower[3];
+		initState(state);
+	}
+
+	private void assignTowers()
+	{
 		towers[0] = tower01;
 		towers[1] = tower02;
 		towers[2] = tower03;
+		towers[3] = tower04;
+	}
+
+	private void initState(State02 state)
+	{
+		Random random = new Random();
+		toggleDisabledCounter = random.nextInt(6);
+		System.out.println(toggleDisabledCounter);
+		currentNumMoves = 0;
+		assignTowers();
 		stateList.add(state);
 		resetMove(state);
 	}
@@ -70,20 +76,20 @@ public class Game implements Serializable
 		currentState = createDefaultState();
 	}
 
-	// todo FILE I/O NOT WORKING, NEED TO FIX
-	public State createDefaultState()
+	public State02 createDefaultState()
 	{
 		tower01.getList().clear();
 		tower02.getList().clear();
 		tower03.getList().clear();
+		tower04.getList().clear();
 		for (int i = 0; i < numBlocks; i++) {
-			Block block = new Block(i * 0.5, i);
+			Block02 block = new Block02(i * 0.5, i);
 			towers[0].getList().add(block);
 			blockList.add(block);
 		}
-		State state = new State(tower01, tower02, tower03, numMoves, numBlocks);
+		State02 state = new State02(tower01, tower02, tower03, tower04, numMoves, numBlocks);
 		stateList.add(state);
-		state.printState();
+		/*state.printState();*/
 		return state;
 	}
 
@@ -103,9 +109,9 @@ public class Game implements Serializable
 	 */
 	public boolean moveBlock(int from, int to)
 	{
-		Block blockFrom = towers[from].getList().get(towers[from].getList().size() - 1);
+		Block02 blockFrom = towers[from].getList().get(towers[from].getList().size() - 1);
 		if (towers[to].getList().size() > 0) {
-			Block blockTo = towers[to].getList().get(towers[to].getList().size() - 1);
+			Block02 blockTo = towers[to].getList().get(towers[to].getList().size() - 1);
 			if (blockTo.getSize() > blockFrom.getSize()) {
 				return false;
 			}
@@ -117,11 +123,22 @@ public class Game implements Serializable
 		if (checkWon()) {
 			gameWon = true;
 		}
-		State state = new State(tower01, tower02, tower03, numMoves, numBlocks);
+		State02 state = new State02(tower01, tower02, tower03, tower04, numMoves, numBlocks);
 		stateList.add(state);
 		currentState = state;
 		state.printState();
+		toggleDisabledCounter--;
+		if (toggleDisabledCounter < 1) {
+			toggleTowerDisabled();
+		}
 		return true;
+	}
+
+	private void toggleTowerDisabled()
+	{
+		towerDisabled = !towerDisabled;
+		Random rand = new Random();
+		toggleDisabledCounter = rand.nextInt(6);
 	}
 
 	/**
@@ -140,7 +157,7 @@ public class Game implements Serializable
 	 * @param id is the id of the tower
 	 * @return the tower requested
 	 */
-	public List<Block> getTowerList(int id)
+	public List<Block02> getTowerList(int id)
 	{
 		return towers[id].getList();
 	}
@@ -160,14 +177,14 @@ public class Game implements Serializable
 		if (currentNumMoves < 1 || gameWon) {
 			return;
 		}
-		State state = stateList.get(stateList.size() - 2);
+		State02 state = stateList.get(stateList.size() - 2);
 		resetMove(state);
 
 		stateList.remove(stateList.size() - 1);
 		currentNumMoves--;
 	}
 
-	public void resetMove(State state)
+	public void resetMove(State02 state)
 	{
 		tower01.getList().clear();
 		tower01.getList().addAll(state.getTower01Blocks());
@@ -177,10 +194,15 @@ public class Game implements Serializable
 
 		tower03.getList().clear();
 		tower03.getList().addAll(state.getTower03Blocks());
+
+		tower04.getList().clear();
+		tower04.getList().addAll(state.getTower04Blocks());
+
+		towerDisabled = !tower04.isActive();
 		numMoves = state.getNumMoves();
 	}
 
-	public State getCurrentState()
+	public State02 getCurrentState()
 	{
 		return currentState;
 	}

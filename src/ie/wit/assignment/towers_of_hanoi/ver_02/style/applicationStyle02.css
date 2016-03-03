@@ -1,0 +1,23 @@
+.topStack {
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-background-color: #808080;
+}
+
+.centerStacks {
+    -fx-background-image: url("../../img/space-texture_02%20copy.jpg");
+    -fx-background-size: 100%;
+}
+
+.blocks {
+    -fx-background-color: #ff6e37;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-background-image: url("../../img/white-brick-wall.png");
+}
+
+.scoreBox {
+    -fx-background-color: black;
+}

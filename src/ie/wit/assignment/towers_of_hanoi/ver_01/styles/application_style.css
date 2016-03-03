@@ -10,7 +10,7 @@
 }
 
 #buttonBox {
-    -fx-background-image: url("../img/Moon2.jpg");
+    -fx-background-image: url("../../img/Moon2.jpg");
     -fx-background-size: 100%;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .centerStacks {
-    -fx-background-image: url("../img/space-texture_02%20copy.jpg");
+    -fx-background-image: url("../../img/space-texture_02%20copy.jpg");
     -fx-background-size: 100%;
 }
 
@@ -29,11 +29,21 @@
     -fx-border-color: black;
     -fx-border-style: solid;
     -fx-border-width: 1px;
-    -fx-background-image: url("../img/white-brick-wall.png");
+    -fx-background-image: url("../../img/white-brick-wall.png");
 }
 
 .highlightedBlock {
     -fx-border-color: lawngreen;
     -fx-border-style: solid;
     -fx-border-width: 3px;
+}
+
+.menuBox {
+    -fx-background-image: url("../../img/toh.jpg");
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.menuHead {
+    -fx-background-color: #ffb421;
 }

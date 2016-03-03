@@ -1,31 +1,63 @@
 package ie.wit.assignment.towers_of_hanoi.ver_01;
 
-import ie.wit.assignment.towers_of_hanoi.ver_01.model.Game;
+import ie.wit.assignment.towers_of_hanoi.ver_01.model.State;
 
 import java.io.*;
-import java.util.List;
 
 /**
  * This class will handle I/O
  */
 public class FileManager
 {
+	public static File file = new File("games.dat");
 	private static ObjectOutputStream oos;
 	private static ObjectInputStream ois;
 
-	public static void writeOut(List<Game> games, File file) throws IOException
+	/**
+	 * Save to file
+	 *
+	 * @param game game to be saved
+	 */
+	public static void writeOut(State game)
 	{
-		oos = new ObjectOutputStream(new FileOutputStream(file));
-		oos.writeObject(games);
-		oos.close();
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(new File("games.dat")));
+			oos.writeObject(game);
+			oos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static List<Game> readIn(File file) throws IOException, ClassNotFoundException
+	/**
+	 * Read file
+	 *
+	 * @return the saved state
+	 */
+	public static State readIn()
 	{
-		List<Game> temp = null;
-		ois = new ObjectInputStream(new FileInputStream(file));
-		temp = (List<Game>) ois.readObject();
-		ois.close();
-		return temp;
+		State temp;
+		try {
+			if (file.exists()) {
+				ois = new ObjectInputStream(new FileInputStream(file));
+				temp = (State) ois.readObject();
+				System.out.println(temp);
+				return temp;
+			} else {
+				return null;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 }

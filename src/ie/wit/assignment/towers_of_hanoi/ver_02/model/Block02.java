@@ -1,17 +1,17 @@
-package ie.wit.assignment.towers_of_hanoi.ver_01.model;
+package ie.wit.assignment.towers_of_hanoi.ver_02.model;
 
 import java.io.Serializable;
 
 /**
  * Created by Joe on 12/02/2016.
  */
-public class Block implements Serializable
+public class Block02 implements Serializable
 {
 	private double size;
 	private int index;
 	private boolean highlighted;
 
-	public Block(double size, int index)
+	public Block02(double size, int index)
 	{
 		this.size = size;
 		this.index = index;

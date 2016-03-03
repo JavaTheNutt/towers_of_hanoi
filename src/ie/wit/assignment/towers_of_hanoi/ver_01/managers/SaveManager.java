@@ -1,34 +1,39 @@
 package ie.wit.assignment.towers_of_hanoi.ver_01.managers;
 
 import ie.wit.assignment.towers_of_hanoi.ver_01.FileManager;
-import ie.wit.assignment.towers_of_hanoi.ver_01.model.Game;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import ie.wit.assignment.towers_of_hanoi.ver_01.model.State;
 
 /**
- * Created by Joe on 24/02/2016.
+ * This class will be responsible for writing the state out and reading it back in
  */
 public class SaveManager
 {
-	private static List<Game> gameList;
-	private static File gamesFile = new File("games.dat");
+	private State game;
 
-	public static void setGames()
+	/**
+	 * When initialised, will read from the file
+	 */
+	public SaveManager()
 	{
-		try {
-			gameList = gamesFile.exists() ? FileManager.readIn(gamesFile): null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
+		game = FileManager.readIn();
 	}
 
 
-	public static Game getGame(int index){
-		return gameList.get(index);
+	/**
+	 * Save the game
+	 */
+	public void saveGame()
+	{
+		FileManager.writeOut(game);
+	}
+
+	public State getGame()
+	{
+		return game;
+	}
+
+	public void setGame(State game)
+	{
+		this.game = game;
 	}
 }
