@@ -248,7 +248,7 @@ public class TowersOfHanoiCtrl
 			}
 			for (int i = game.getTowerList(j).size(); i > 0; i--) {
 				Block block = game.getTowerList(j).get(i - 1);
-				Insets padding = new Insets(0, block.getSize() * 30, 0, block.getSize() * 30);
+				Insets padding = new Insets(0, block.getSize() * 20, 0, block.getSize() * 20);
 				StackPane pane = new StackPane();
 				StackPane outerPane = new StackPane(pane);
 				outerPane.setPadding(padding);

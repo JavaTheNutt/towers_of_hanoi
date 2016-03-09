@@ -7,8 +7,6 @@ import java.util.List;
 /**
  * Created by Joe on 24/02/2016.
  */
-// TODO: 03/03/2016 Make a state hold an extra tower 
-// TODO: 03/03/2016 Track if tower04 is enabled/disabled
 
 public class State02 implements Serializable
 {

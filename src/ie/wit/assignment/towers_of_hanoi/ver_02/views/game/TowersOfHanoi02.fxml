@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@../../style/applicationStyle02.css" xmlns="http://javafx.com/javafx/8"
-            fx:controller="ie.wit.assignment.towers_of_hanoi.ver_02.views.game.TowersOfHanoi02Ctrl">
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../style/applicationStyle02.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ie.wit.assignment.towers_of_hanoi.ver_02.views.game.TowersOfHanoi02Ctrl">
     <bottom>
-        <HBox id="bottomHBox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="100.0"
-              BorderPane.alignment="CENTER">
+        <HBox id="bottomHBox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="100.0" BorderPane.alignment="CENTER">
             <children>
-                <ComboBox fx:id="comboBox" prefWidth="50.0"/>
-                <Button mnemonicParsing="false" onAction="#restartClicked" text="Restart Game"/>
-                <Button mnemonicParsing="false" text="Undo Move"/>
+                <ComboBox fx:id="comboBox" prefWidth="50.0" />
+                <Button mnemonicParsing="false" onAction="#restartClicked" text="Restart Game" />
+                <Button mnemonicParsing="false" onAction="#resetMove" text="Undo Move" />
+            <Button mnemonicParsing="false" onAction="#saveGame" text="Save" />
             </children>
         </HBox>
     </bottom>
@@ -24,96 +23,87 @@
                     <children>
                         <HBox styleClass="scoreBox">
                             <children>
-                                <Label fx:id="movesLabel" text="Moves:  " textFill="#fffefe"
-                                       StackPane.alignment="CENTER_RIGHT"/>
-                                <Label textFill="#fffefe"/>
+                                <Label fx:id="movesLabel" text="Moves:  " textFill="#fffefe" StackPane.alignment="CENTER_RIGHT" />
+                                <Label textFill="#fffefe" />
                             </children>
                         </HBox>
                     </children>
                 </StackPane>
                 <GridPane VBox.vgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks">
                             <padding>
-                                <Insets top="60.0"/>
+                                <Insets top="60.0" />
                             </padding>
                             <children>
-                                <VBox fx:id="tower01" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower01" alignment="BOTTOM_CENTER" onMouseClicked="#buttonClick" prefHeight="200.0" prefWidth="100.0" />
                             </children>
                         </StackPane>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks"
-                                   GridPane.columnIndex="1">
+                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks" GridPane.columnIndex="1">
                             <padding>
-                                <Insets top="60.0"/>
+                                <Insets top="60.0" />
                             </padding>
                             <children>
-                                <VBox fx:id="tower02" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower02" alignment="BOTTOM_CENTER" onMouseClicked="#buttonClick" prefHeight="200.0" prefWidth="100.0" />
                             </children>
                         </StackPane>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks"
-                                   GridPane.columnIndex="2">
+                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks" GridPane.columnIndex="2">
                             <padding>
-                                <Insets top="60.0"/>
+                                <Insets top="60.0" />
                             </padding>
                             <children>
-                                <VBox fx:id="tower03" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower03" alignment="BOTTOM_CENTER" onMouseClicked="#buttonClick" prefHeight="200.0" prefWidth="100.0" />
                             </children>
                         </StackPane>
-                        <StackPane layoutX="310.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0"
-                                   styleClass="centerStacks" GridPane.columnIndex="3">
+                        <StackPane layoutX="310.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" styleClass="centerStacks" GridPane.columnIndex="3">
                             <children>
-                                <VBox fx:id="tower04" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"/>
+                                <VBox fx:id="tower04" alignment="BOTTOM_CENTER" onMouseClicked="#buttonClick" prefHeight="200.0" prefWidth="100.0" />
                             </children>
                             <padding>
-                                <Insets top="60.0"/>
+                                <Insets top="60.0" />
                             </padding>
                         </StackPane>
                     </children>
                 </GridPane>
                 <GridPane id="buttonBox" alignment="BOTTOM_CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="tower01Button" mnemonicParsing="false" text="Tower 1"
-                                GridPane.halignment="CENTER"/>
-                        <Button fx:id="tower02Button" mnemonicParsing="false" text="Tower 2" GridPane.columnIndex="1"
-                                GridPane.halignment="CENTER"/>
-                        <Button fx:id="tower03Button" alignment="CENTER" mnemonicParsing="false" text="Tower 3"
-                                GridPane.columnIndex="2" GridPane.halignment="CENTER"/>
-                        <Button alignment="CENTER" layoutX="356.0" layoutY="23.0" mnemonicParsing="false" text="Tower 4"
-                                GridPane.columnIndex="3"/>
+                        <Button fx:id="tower01Button" mnemonicParsing="false" onAction="#buttonClick" text="Tower 1" GridPane.halignment="CENTER" />
+                        <Button fx:id="tower02Button" mnemonicParsing="false" onAction="#buttonClick" text="Tower 2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button fx:id="tower03Button" alignment="CENTER" mnemonicParsing="false" onAction="#buttonClick" text="Tower 3" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                        <Button fx:id="tower04Button" alignment="CENTER" layoutX="356.0" layoutY="23.0" mnemonicParsing="false" onAction="#buttonClick" text="Tower 4" GridPane.columnIndex="3" />
                     </children>
                     <padding>
-                        <Insets bottom="10.0" top="10.0"/>
+                        <Insets bottom="10.0" top="10.0" />
                     </padding>
                 </GridPane>
             </children>
         </VBox>
     </center>
     <top>
-        <StackPane id="topStack" prefHeight="28.0" prefWidth="600.0" styleClass="topStack"
-                   BorderPane.alignment="CENTER">
+        <StackPane id="topStack" prefHeight="28.0" prefWidth="600.0" styleClass="topStack" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Towers Of Hanoi Ver 1" StackPane.alignment="CENTER_LEFT"/>
+                <Label text="Towers Of Hanoi Ver 2" StackPane.alignment="CENTER_LEFT" />
             </children>
             <padding>
-                <Insets left="5.0"/>
+                <Insets left="5.0" />
             </padding>
         </StackPane>
     </top>

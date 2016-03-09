@@ -70,7 +70,6 @@ public class Game implements Serializable
 		currentState = createDefaultState();
 	}
 
-	// todo FILE I/O NOT WORKING, NEED TO FIX
 	public State createDefaultState()
 	{
 		tower01.getList().clear();

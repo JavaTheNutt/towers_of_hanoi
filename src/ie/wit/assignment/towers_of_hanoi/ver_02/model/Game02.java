@@ -8,9 +8,6 @@ import java.util.Random;
 /**
  * This will be an instance of a single game.
  */
-// TODO: 03/03/2016 Add a 4th tower. enable/disable tower at a random interval
-// TODO: 03/03/2016 get 1st constructor to generate default state and call second constructor
-// TODO: 03/03/2016 genereate random number for when tower 4 will become active
 public class Game02 implements Serializable
 {
 	private final Tower02 tower01 = new Tower02(1);
@@ -46,6 +43,7 @@ public class Game02 implements Serializable
 	{
 		numBlocks = state.getNumBlocks();
 		numMoves = state.getNumMoves();
+		assignTowers();
 		initState(state);
 	}
 
@@ -83,7 +81,7 @@ public class Game02 implements Serializable
 		tower03.getList().clear();
 		tower04.getList().clear();
 		for (int i = 0; i < numBlocks; i++) {
-			Block02 block = new Block02(i * 0.5, i);
+			Block02 block = new Block02(i * 0.8, i);
 			towers[0].getList().add(block);
 			blockList.add(block);
 		}
@@ -109,6 +107,11 @@ public class Game02 implements Serializable
 	 */
 	public boolean moveBlock(int from, int to)
 	{
+		if (from == 4 || to == 4){
+			if (towerDisabled){
+				return false;
+			}
+		}
 		Block02 blockFrom = towers[from].getList().get(towers[from].getList().size() - 1);
 		if (towers[to].getList().size() > 0) {
 			Block02 blockTo = towers[to].getList().get(towers[to].getList().size() - 1);
@@ -205,5 +208,10 @@ public class Game02 implements Serializable
 	public State02 getCurrentState()
 	{
 		return currentState;
+	}
+
+	public boolean isTowerDisabled()
+	{
+		return towerDisabled;
 	}
 }

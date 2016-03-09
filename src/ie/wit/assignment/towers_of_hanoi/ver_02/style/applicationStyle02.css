@@ -21,3 +21,8 @@
 .scoreBox {
     -fx-background-color: black;
 }
+.highlightedBlock {
+    -fx-border-color: lawngreen;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+}
