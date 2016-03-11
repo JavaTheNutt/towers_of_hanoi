@@ -1,40 +1,39 @@
 package ie.wit.assignment.towers_of_hanoi.ver_02.managers;
 
-import ie.wit.assignment.towers_of_hanoi.ver_02.model.Game02;
 import ie.wit.assignment.towers_of_hanoi.ver_02.model.State02;
 
 /**
- * Manager for single player games
+ * Manager for multiplayer games
  */
-public class SingleGameManager02 extends GameManager02
+public class MultiplayerGameManager extends GameManager02
 {
 	/**
-	 * constructor
+	 * default constructor
 	 */
-	public SingleGameManager02()
+	public MultiplayerGameManager()
 	{
 		super();
 	}
 
 	/**
-	 * create game
+	 * Create a game
 	 *
 	 * @param numBlocks the number of blocks in the new game
 	 */
 	@Override
 	public void createGame(int numBlocks)
 	{
-		player01Game = new Game02(numBlocks);
+
 	}
 
 	/**
-	 * create game
+	 * create a game
 	 *
 	 * @param state the state of the game to be initialised
 	 */
 	@Override
 	public void createGame(State02 state)
 	{
-		player01Game = new Game02(state);
+
 	}
 }

@@ -21,8 +21,28 @@
 .scoreBox {
     -fx-background-color: black;
 }
+
 .highlightedBlock {
     -fx-border-color: lawngreen;
     -fx-border-style: solid;
     -fx-border-width: 3px;
+}
+
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.bottomBox {
+    -fx-background-color: grey;
+}
+
+.buttonBox {
+    -fx-background-image: url("../../img/Moon2.jpg");
+}
+
+.menuCenter {
+    -fx-background-image: url("../../img/Splash.jpg");
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
 }

@@ -10,6 +10,7 @@ import java.util.Random;
  */
 public class Game02 implements Serializable
 {
+	// TODO: 11/03/2016 convert towers array to final property as they will always be in the same slot
 	private final Tower02 tower01 = new Tower02(1);
 	private final Tower02 tower02 = new Tower02(2);
 	private final Tower02 tower03 = new Tower02(3);
@@ -39,14 +40,23 @@ public class Game02 implements Serializable
 		initState(state);
 	}
 
+	/**
+	 * Constructor
+	 *
+	 * @param state is the state to be loaded
+	 */
 	public Game02(State02 state)
 	{
 		numBlocks = state.getNumBlocks();
 		numMoves = state.getNumMoves();
+		towerDisabled = !state.isFourthActive();
 		assignTowers();
 		initState(state);
 	}
 
+	/**
+	 * Called by the constructor to place the towers in an array
+	 */
 	private void assignTowers()
 	{
 		towers[0] = tower01;
@@ -55,11 +65,15 @@ public class Game02 implements Serializable
 		towers[3] = tower04;
 	}
 
+	/**
+	 * called by the constructor for initial setup
+	 *
+	 * @param state the state that the game is to be started in
+	 */
 	private void initState(State02 state)
 	{
 		Random random = new Random();
 		toggleDisabledCounter = random.nextInt(6);
-		System.out.println(toggleDisabledCounter);
 		currentNumMoves = 0;
 		assignTowers();
 		stateList.add(state);
@@ -74,6 +88,11 @@ public class Game02 implements Serializable
 		currentState = createDefaultState();
 	}
 
+	/**
+	 * called by the constructor when a state is not specified
+	 *
+	 * @return the default state based on the number of blocks to be used
+	 */
 	public State02 createDefaultState()
 	{
 		tower01.getList().clear();
@@ -91,6 +110,11 @@ public class Game02 implements Serializable
 		return state;
 	}
 
+	/**
+	 * accessor for numblocks property
+	 *
+	 * @return numblocks
+	 */
 	public int getNumBlocks()
 	{
 		return numBlocks;
@@ -107,8 +131,8 @@ public class Game02 implements Serializable
 	 */
 	public boolean moveBlock(int from, int to)
 	{
-		if (from == 4 || to == 4){
-			if (towerDisabled){
+		if (from == 4 || to == 4) {
+			if (towerDisabled) {
 				return false;
 			}
 		}
@@ -133,10 +157,14 @@ public class Game02 implements Serializable
 		toggleDisabledCounter--;
 		if (toggleDisabledCounter < 1) {
 			toggleTowerDisabled();
+			state.setFourthActive(!state.isFourthActive());
 		}
 		return true;
 	}
 
+	/**
+	 * This will toggle the fourth tower and init a new random counter
+	 */
 	private void toggleTowerDisabled()
 	{
 		towerDisabled = !towerDisabled;
@@ -165,16 +193,30 @@ public class Game02 implements Serializable
 		return towers[id].getList();
 	}
 
+	/**
+	 * accessor for gamewon
+	 *
+	 * @return boolean to determine if game is won
+	 */
 	public boolean isGameWon()
 	{
 		return gameWon;
 	}
 
+	/**
+	 * accesor for the number of moves
+	 *
+	 * @return the number of moves made
+	 */
 	public int getNumMoves()
 	{
 		return numMoves;
 	}
 
+	/**
+	 * Default reset move which simply gets the previous state and then calls the overloaded version with that state as
+	 * a parameter
+	 */
 	public void resetMove()
 	{
 		if (currentNumMoves < 1 || gameWon) {
@@ -187,6 +229,11 @@ public class Game02 implements Serializable
 		currentNumMoves--;
 	}
 
+	/**
+	 * reset the move to a specifed state. called by both constructors and also by the default reset move method
+	 *
+	 * @param state the state that the game should be set to.
+	 */
 	public void resetMove(State02 state)
 	{
 		tower01.getList().clear();
@@ -200,16 +247,26 @@ public class Game02 implements Serializable
 
 		tower04.getList().clear();
 		tower04.getList().addAll(state.getTower04Blocks());
-
+		tower04.setActive(state.isFourthActive());
 		towerDisabled = !tower04.isActive();
 		numMoves = state.getNumMoves();
 	}
 
+	/**
+	 * accessor for the current state
+	 *
+	 * @return the current state
+	 */
 	public State02 getCurrentState()
 	{
 		return currentState;
 	}
 
+	/**
+	 * accessor for the property determining if the tower is disabled
+	 *
+	 * @return
+	 */
 	public boolean isTowerDisabled()
 	{
 		return towerDisabled;

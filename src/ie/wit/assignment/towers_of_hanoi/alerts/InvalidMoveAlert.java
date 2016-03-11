@@ -3,10 +3,13 @@ package ie.wit.assignment.towers_of_hanoi.alerts;
 import javafx.scene.control.Alert;
 
 /**
- * Created by Joe on 14/02/2016.
+ * Dialog for invalid moves
  */
 public class InvalidMoveAlert
 {
+	/**
+	 * display dialog
+	 */
 	public static void display()
 	{
 		Alert alert = new Alert(Alert.AlertType.ERROR);

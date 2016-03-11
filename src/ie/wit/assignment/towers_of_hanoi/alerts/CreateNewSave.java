@@ -5,18 +5,25 @@ import javafx.scene.control.TextInputDialog;
 import java.util.Optional;
 
 /**
- * Created by Joe on 09/03/2016.
+ * This is the dialog for creating a new save
  */
 public class CreateNewSave
 {
-	public static String display(){
+	// TODO: 11/03/2016 create a new dialog to warn user if they enter a name that is already used currently just overwrites 
+
+	/**
+	 * display dialog
+	 *
+	 * @return the name of the new save
+	 */
+	public static String display()
+	{
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Create New Save");
-		/*dialog.setHeaderText("Look, a Text Input Dialog");*/
-		dialog.setContentText("Please a name for the save");
+		dialog.setContentText("Please enter a name for the save");
 
 		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
+		if (result.isPresent()) {
 			return result.get();
 		}
 		return null;
